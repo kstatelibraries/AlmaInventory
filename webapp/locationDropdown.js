@@ -4,6 +4,7 @@ $(document).ready(function(){
   var libraryObject = {
     "Hale": ["cmc", "currper", "dowdis", "dowref", "gov", "govks", "govmap", "govmfile", "govmindex", "govoffmap", "halers", "juv", "main", "mediacoll", "medialp", "mediaover", "mic", "micref", "microfilm", "musart", "musartover", "musartref", "muscd", "muscdover", "musscore", "over", "overplus", "preslab", "ref", "sortmain", "sunderland", "tech", "techjstor", "techserial"],
     "Vetmed": ["vetm", "vetmrs", "vetmhist", "vetmjuv", "vetmnew", "vetmover", "vetmper", "vetmref", "vetmspec"],
+    "Math/Physics": ["phys"],
     "Weigel": ["arch", "archoverrs", "archmapc", "archmedia", "archnew", "archover", "archper", "archref", "archspec"]
   }
 
