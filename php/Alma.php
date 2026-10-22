@@ -2,6 +2,9 @@
 //Author: Terry Brady, Georgetown University Libraries
 
 class Alma {
+  // Declared explicitly: PHP 8.2+ deprecates dynamic properties
+  private string $alma_apikey;
+
 	function __construct() {
       $configpath = parse_ini_file ("Alma.prop", false);
       $proppath = $configpath["proppath"];
