@@ -31,9 +31,9 @@ class Alma {
         'Accept: application/json'
   	  ));
 
+      // curl_close() omitted: no-op since PHP 8.0, deprecated in 8.5; handle is freed automatically
       $jsonstr = curl_exec ($ch);
 
-      curl_close ($ch);
       echo $jsonstr;
     }
     echo "";
@@ -60,7 +60,6 @@ class Alma {
       ));
       $response = curl_exec($ch);
       $code = curl_getinfo($ch,CURLINFO_HTTP_CODE);
-      curl_close($ch);
       // print urldecode($url); // troubleshooting for json body
 
       // print_r($body); // troubleshooting for json body

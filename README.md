@@ -89,3 +89,19 @@ If you wish to build a customized instance of this Docker image, the following c
 - `docker build -t terrywbrady/alma-inventory-php -f Dockerfile.php .`
 - `docker build -t terrywbrady/alma-inventory-node -f Dockerfile.node .`
 - `docker build -t terrywbrady/alma-inventory-jetty -f Dockerfile.jetty .`
+
+## PHP Runtime
+`Dockerfile.php` builds from the official `php:8.5-apache` image.
+- The tag tracks the latest PHP 8.5 patch release. Rebuild the image to pick up PHP security fixes.
+  - PHP 8.5.12 or newer is required (fixes CVE-2026-109618 / CVE-2026-109619).
+  - PHP 8.5 receives security support until 2029-12-31. See https://www.php.net/supported-versions.php
+- The PHP code (`php/*.php`) is compatible with PHP 8.2 through 8.5.
+- The image enables PHP's `php.ini-production` settings:
+  - `display_errors` is off, so PHP warnings and deprecations are never written into API responses.
+    - The PHP proxy returns raw JSON to the browser. Any extra output corrupts it, and the app reports `Connection Error`.
+  - Warnings and errors are logged to the container output (`docker logs`). Deprecation notices are not logged.
+
+### Troubleshooting `Connection Error`
+The browser shows `Connection Error` whenever the PHP proxy response cannot be parsed as JSON, not only on network failures.
+- Open `php/barcodeReportRedirect.php?apipath=...` directly (or check the response body in browser DevTools) to see the raw response.
+- An XML `UNAUTHORIZED` response means the Alma API key in `local.prop` is missing, expired, or lacks Bib API access.

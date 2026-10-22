@@ -1,6 +1,7 @@
-# Pinned to 8.2.35: fixes CVE-2026-109618 / CVE-2026-109619 (mod_php RCE). PHP 8.2 is EOL 2026-12-31.
-FROM php:8.2.35-apache
-# Use production php.ini so PHP notices go to logs instead of corrupting JSON responses
+# Tracks latest PHP 8.5 patch; rebuild to pick up security fixes (8.5.12+ required for CVE-2026-109618 / CVE-2026-109619).
+# PHP 8.5 security support ends 2029-12-31.
+FROM php:8.5-apache
+# Use production php.ini so PHP errors are never written into JSON responses (warnings/errors are logged to stderr)
 RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 RUN a2enmod remoteip \
  && echo "RemoteIPHeader X-Forwarded-For" > /etc/apache2/conf-available/remoteip.conf \
